@@ -100,7 +100,7 @@ void loop() {
   while (millis() - startMillis < 500);
 }
 
-![Foto de Ruben Garcia](images/IMG_748E83AF-4ED5-4C90-9EE6-65B3522506C6.JPEG)
+![Foto de Ruben Garcia](https://github.com/ruben22garcia/PD_2025/blob/main/P1/Practica1/IMG_748E83AF-4ED5-4C90-9EE6-65B3522506C6.JPEG)
 
 
 ### 🟢 3. Acceso directo a registros + espera activa
