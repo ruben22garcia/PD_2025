@@ -1,0 +1,118 @@
+# Proyecto Coche Autónomo Controlado por WiFi con ESP32 y App Inventor
+
+## Introducción
+
+Este proyecto consiste en el diseño y desarrollo de un coche robótico controlado de forma remota mediante una red WiFi creada por un microcontrolador ESP32 configurado en modo punto de acceso (AP). El objetivo es permitir el control total del vehículo desde un smartphone sin necesidad de conexión a Internet, mediante comandos HTTP simples que activan movimientos básicos: avanzar, retroceder y girar.
+
+Además, se incorporan sensores ultrasónicos delanteros y traseros para evitar colisiones detectando obstáculos próximos, incrementando la seguridad y autonomía del sistema. Este proyecto es una evolución de un control básico de motores DC, añadiendo conectividad WiFi, comunicación con app móvil y un sistema de prevención de choques.
+
+---
+
+## Objetivos
+
+- Configurar el ESP32 como punto de acceso WiFi para generar una red local independiente.  
+- Desarrollar un servidor web embebido capaz de recibir y procesar comandos HTTP para el control de motores.  
+- Integrar sensores ultrasónicos para la detección de obstáculos y evitar colisiones automáticas.  
+- Diseñar una aplicación móvil sencilla que permita enviar comandos de movimiento al ESP32 de forma intuitiva.  
+- Crear un sistema autónomo, portátil y funcional sin necesidad de conexión a Internet o servidores externos.  
+
+---
+
+## Materiales Utilizados
+
+| Componente                    | Descripción                         |
+|------------------------------|-----------------------------------|
+| **ESP32 Dev Module**          | Microcontrolador WiFi con capacidad de procesamiento y conexiones GPIO. |
+| **2 Motores DC**              | Motores eléctricos para movimiento. |
+| **Controlador de motores (L298N o similar)** | Driver para controlar dirección y velocidad de los motores. |
+| **2 Sensores ultrasónicos HC-SR04** | Para medir distancias delanteras y traseras, detectando obstáculos. |
+| **Fuente de alimentación externa** | Alimenta el ESP32 y motores con corriente adecuada. |
+| **Smartphone con WiFi**       | Dispositivo para controlar el coche desde una app móvil. |
+| **MIT App Inventor**          | Plataforma para crear la aplicación móvil de control. |
+| **Chasis, ruedas, cables, etc.** | Soporte físico y conexiones necesarias. |
+
+---
+
+## Arquitectura y Funcionamiento
+
+### ESP32 como Punto de Acceso WiFi
+
+- Configuración del ESP32 para actuar como punto de acceso con SSID `"CarWiFi"` y contraseña `"12345678"`.  
+- El smartphone se conecta directamente a esta red local sin necesidad de router o conexión a Internet.  
+
+### Servidor Web y Control de Motores
+
+- Implementación de un servidor HTTP en el ESP32 que escucha comandos en el puerto 80.  
+- Comandos HTTP simples recibidos como rutas `/F`, `/B`, `/L`, `/R` para avanzar, retroceder, girar izquierda o derecha.  
+- Control de motores DC mediante pines GPIO y señales PWM para la velocidad.
+
+### Sensores Ultrasónicos y Seguridad
+
+- Uso de sensores HC-SR04 para medir distancias frontal y trasera.  
+- El sistema bloquea movimientos que puedan causar colisiones, deteniendo el motor si detecta un obstáculo a menos de 20 cm.
+
+---
+
+## Aplicación Móvil (MIT App Inventor)
+
+- **Interfaz sencilla e intuitiva** con botones para:  
+  - Avanzar  
+  - Retroceder  
+  - Girar a la izquierda  
+  - Girar a la derecha  
+- **Campo para ingresar la IP del ESP32**, que por defecto es `192.168.4.1`.  
+- **Envío de comandos HTTP** al ESP32 según la acción seleccionada, utilizando las URLs:  
+  - `/F` para avanzar  
+  - `/B` para retroceder  
+  - `/L` para girar a la izquierda  
+  - `/R` para girar a la derecha  
+- **Sin botón de parada manual:** el coche mantiene el último comando recibido hasta que se envía otro.  
+- **Uso sin conexión a Internet**, aprovechando la red WiFi local creada por el ESP32.  
+
+---
+
+## Código ESP32 (Resumen Técnico)
+
+- Configuración de WiFi en modo Soft Access Point (AP).  
+- Creación de servidor web con la librería `WebServer`.  
+- Control de motores con pines IN1-IN4 para dirección y ENA, ENB con PWM para velocidad.  
+- Función para lectura de sensores ultrasónicos, calculando la distancia mediante el tiempo de pulso.  
+- Prevención de movimiento ante obstáculos detectados por sensores.  
+
+---
+
+## Resultados y Pruebas
+
+- Red WiFi creada por el ESP32 es estable y visible.  
+- Respuesta rápida y precisa del coche ante comandos enviados desde la app móvil.  
+- Sensores ultrasónicos detectan correctamente obstáculos y detienen el movimiento para evitar choques.  
+- Sistema completamente autónomo, portable y funcional sin dependencia de conexión externa.  
+
+---
+
+## Mejoras Futuras
+
+- Incorporar botón de parada manual o emergencia en la app móvil.  
+- Añadir control variable de velocidad con sliders.  
+- Implementar más sensores para detección lateral y navegación más segura.  
+- Añadir retroalimentación visual o sonora para informar al usuario sobre estado y obstáculos.  
+- Integrar algoritmos de navegación autónoma y mapeo básico.  
+
+---
+
+## Conclusión
+
+Este proyecto muestra cómo combinar hardware y software para crear un coche robótico controlado remotamente mediante una red WiFi local, sin necesidad de infraestructura externa. El uso de ESP32 permite un control robusto, con sensores que aportan seguridad y una aplicación móvil fácil de usar. La plataforma resulta ideal para futuros desarrollos en robótica educativa y domótica.
+
+---
+
+## Autores
+
+- Martí  
+- Ruben  
+
+---
+
+## Licencia
+
+Proyecto licenciado bajo [MIT License](LICENSE).
